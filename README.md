@@ -1,5 +1,7 @@
 # NauHomeLogin
-i-NAU-* wifi captive portal auto login auto login application
+i-NAU-* wifi captive portal auto login auto login application.
+Now support most of devices except Vivo and Oppo.
+Already successfully test in MIUI and EMUI.
 
     NauHomeLogin Android Application
     Copyright (C) 2019  XFY9326
