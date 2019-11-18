@@ -92,14 +92,24 @@ public class MainActivity extends Activity {
                                     Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
                                 } else {
                                     sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
-                                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                                    try {
+                                        startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                                    } catch (Exception e) {
+                                        Toast.makeText(MainActivity.this, R.string.start_settings_accessibility_activity_error, Toast.LENGTH_SHORT).show();
+                                        e.printStackTrace();
+                                    }
                                 }
                             } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.NOTIFICATION_SERVICE.ordinal()) {
                                 if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
                                     Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
                                 } else {
                                     sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
-                                    startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+                                    try {
+                                        startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+                                    } catch (Exception e) {
+                                        Toast.makeText(MainActivity.this, R.string.start_settings_notification_activity_error, Toast.LENGTH_SHORT).show();
+                                        e.printStackTrace();
+                                    }
                                 }
                             } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.MIUI_SPECIAL_SUPPORT.ordinal()) {
                                 if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {

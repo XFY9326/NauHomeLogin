@@ -16,7 +16,8 @@ public class NetMethod {
         if (sharedPreferences.contains(Config.PREFERENCE_WIFI_SSID)) {
             String ssid = NetMethod.getConnectedWifiName(context);
             String ip = getConnectedWifiIp(context);
-            return ssid != null && ssid.equals(sharedPreferences.getString(Config.PREFERENCE_WIFI_SSID, null)) &&
+            String saved_ssid = sharedPreferences.getString(Config.PREFERENCE_WIFI_SSID, null);
+            return ssid != null && saved_ssid != null && ssid.contains(saved_ssid) &&
                     ip != null && !ip.equals("0.0.0.0") && !ip.equals("127.0.0.1");
         }
         return false;

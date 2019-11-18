@@ -27,7 +27,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services.LoginService" />
+        <service
+            android:name=".services.LoginService"
+            android:process=":LoginService" />
 
         <service
             android:name=".services.WifiListenerAccessibilityService"

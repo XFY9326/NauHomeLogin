@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
 import tool.xfy9326.nauhome.Config;
+import tool.xfy9326.nauhome.methods.ListenerMethod;
 import tool.xfy9326.nauhome.methods.NetMethod;
 import tool.xfy9326.nauhome.methods.PermissionMethod;
-import tool.xfy9326.nauhome.services.LoginService;
 
 public class CaptivePortalReceiver extends BroadcastReceiver {
     private static final String ACTION_MIUI_PORTAL_LOGIN = "com.miui.action.OPEN_WIFI_LOGIN";
@@ -22,10 +23,9 @@ public class CaptivePortalReceiver extends BroadcastReceiver {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.MIUI_SPECIAL_SUPPORT.ordinal()) {
                 if (PermissionMethod.hasPermission(context)) {
-                    if (NetMethod.connectCorrectWifiWithIp(context)) {
-                        context.startService(new Intent(context, LoginService.class)
-                                .putExtra(LoginService.OPERATION_TAG, LoginService.OPERATION_LOGIN)
-                                .putExtra(LoginService.REPORT_TAG, LoginService.REPORT_NOTIFICATION));
+                    if (NetMethod.connectCorrectWifiWithIp(context) && ListenerMethod.needCaptivePortalLogin(context)) {
+                        Log.d("AutoLogin", "CaptivePortalReceiver Start Login Service");
+                        ListenerMethod.startLoginService(context);
                     }
                 }
             }

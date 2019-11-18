@@ -32,4 +32,6 @@
     <string name="not_enabled_listener">This wifi listener was\'t been chosen in application.</string>
     <string name="about_application">Made By XFY9326\n\nOpen Source Website: \nhttps://github.com/XFY9326/NauHomeLogin\n\nOpen Source Licence: GPL 3.0</string>
     <string name="listener_service_introduce">This service is used to listening to network changes and login i-NAU-* Wifi.</string>
+    <string name="start_settings_accessibility_activity_error">Unable to launch accessibility service settings!</string>
+    <string name="start_settings_notification_activity_error">Unable to launch notification listener service settings!</string>
 </resources>
