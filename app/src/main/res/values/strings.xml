@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Auto Login</string>
+    <string name="app_long_name">i-NAU-Home Auto Login</string>
+    <string name="permission_granted">Permission granted!</string>
+    <string name="permission_denied">Permission denied!</string>
+    <string name="login_success">Auto Login Success!</string>
+    <string name="login_failed">Auto Login Failed! %1$s</string>
+    <string name="login_id">Login ID:</string>
+    <string name="login_password">Password:</string>
+    <string name="login_type">Login Type:</string>
+    <string name="save">Save</string>
+    <string name="permission_attention">You must grant permission first!</string>
+    <string name="permission_status">Permission status:</string>
+    <string name="granted">Granted</string>
+    <string name="need_grant">Need Grant</string>
+    <string name="save_success">Saved successfully!</string>
+    <string name="notification_channel">i-NAU Auto Login Notification</string>
+    <string name="notification_channel_des">Report auto login result</string>
+    <string name="logout_attention">If you can\'t login on other devices because of \'Limit User Err\', try logout here.</string>
+    <string name="logout">Logout</string>
+    <string name="manual_login">Manual Login</string>
+    <string name="manual_login_attention">If you have already connect to wifi and can\'t auto login, try manual login here.</string>
+    <string name="logout_success">Logout Success!</string>
+    <string name="logout_failed">Logout Failed! %1$s</string>
+    <string name="about">About</string>
+    <string name="enable_listener">Enable Listener</string>
+    <string name="enabled">Enabled!</string>
+    <string name="only_support_miui_system">This function only support miui system!</string>
+    <string name="need_disable_notification_service">You need disable notification listener service first!</string>
+    <string name="need_disable_accessibility_service">You need disable accessibility service first!</string>
+    <string name="listener_service_attention">Choose and enable one wifi listener to login automatically.</string>
+    <string name="not_enabled_listener">This wifi listener was\'t been chosen in application.</string>
+    <string name="about_application">Made By XFY9326\n\nOpen Source Website: \nhttps://github.com/XFY9326/NauHomeLogin\n\nOpen Source Licence: GPL 3.0</string>
+    <string name="listener_service_introduce">This service is used to listening to network changes and login i-NAU-* Wifi.</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ssid">
+        <item>i-NAU-chinanet</item>
+        <item>i-NAU-cmcc</item>
+        <item>i-NAU-unicom</item>
+        <item>i-NAU-SY</item>
+    </string-array>
+
+    <string-array name="login_type">
+        <item>telecom</item>
+        <item>cmcc</item>
+        <item>unicom</item>
+        <item>school</item>
+    </string-array>
+
+    <string-array name="login_type_name">
+        <item>China Telecom</item>
+        <item>China Mobile</item>
+        <item>China Unicom</item>
+        <item>School</item>
+    </string-array>
+
+    <string-array name="wifi_listener_type">
+        <item>Accessibility Service</item>
+        <item>Notification Service</item>
+        <item>MIUI Special Support</item>
+    </string-array>
+</resources>
