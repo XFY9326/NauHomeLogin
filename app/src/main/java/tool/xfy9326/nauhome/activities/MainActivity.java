@@ -23,6 +23,7 @@ import androidx.preference.PreferenceManager;
 import tool.xfy9326.nauhome.Config;
 import tool.xfy9326.nauhome.R;
 import tool.xfy9326.nauhome.methods.BaseMethod;
+import tool.xfy9326.nauhome.methods.NetMethod;
 import tool.xfy9326.nauhome.methods.PermissionMethod;
 import tool.xfy9326.nauhome.services.LoginService;
 
@@ -152,9 +153,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (PermissionMethod.hasPermission(MainActivity.this)) {
-                    startService(new Intent(MainActivity.this, LoginService.class)
-                            .putExtra(LoginService.OPERATION_TAG, LoginService.OPERATION_LOGIN)
-                            .putExtra(LoginService.REPORT_TAG, LoginService.REPORT_TOAST));
+                    if (NetMethod.needCaptivePortalLogin(MainActivity.this)) {
+                        startService(new Intent(MainActivity.this, LoginService.class)
+                                .putExtra(LoginService.OPERATION_TAG, LoginService.OPERATION_LOGIN)
+                                .putExtra(LoginService.REPORT_TAG, LoginService.REPORT_TOAST));
+                    } else {
+                        Toast.makeText(MainActivity.this, R.string.already_logon, Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
                 }

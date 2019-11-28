@@ -25,6 +25,7 @@
     <string name="about">About</string>
     <string name="enable_listener">Enable Listener</string>
     <string name="enabled">Enabled!</string>
+    <string name="already_logon">You have already logon.</string>
     <string name="only_support_miui_system">This function only support miui system!</string>
     <string name="need_disable_notification_service">You need disable notification listener service first!</string>
     <string name="need_disable_accessibility_service">You need disable accessibility service first!</string>

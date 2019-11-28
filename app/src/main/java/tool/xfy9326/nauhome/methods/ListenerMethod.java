@@ -14,16 +14,6 @@ import androidx.annotation.NonNull;
 import tool.xfy9326.nauhome.services.LoginService;
 
 public class ListenerMethod {
-    public static boolean needCaptivePortalLogin(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
-            if (networkCapabilities != null) {
-                return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI);
-            }
-        }
-        return false;
-    }
 
     public static ConnectivityManager.NetworkCallback startWifiListener(final Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -35,7 +25,6 @@ public class ListenerMethod {
                     .build();
             ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
                 private boolean connectToNewNetwork = false;
-                private boolean linkPropertiesChanged = false;
 
                 @Override
                 public void onAvailable(@NonNull Network network) {
@@ -46,14 +35,12 @@ public class ListenerMethod {
                 @Override
                 public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties linkProperties) {
                     super.onLinkPropertiesChanged(network, linkProperties);
-                    linkPropertiesChanged = true;
                 }
 
                 @Override
                 public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
-                    if (connectToNewNetwork && linkPropertiesChanged) {
+                    if (connectToNewNetwork) {
                         connectToNewNetwork = false;
-                        linkPropertiesChanged = false;
                         if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL) &&
                                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                             Log.d("AutoLogin", "NetworkCallback Start Login Service");
@@ -67,7 +54,6 @@ public class ListenerMethod {
                 public void onLost(@NonNull Network network) {
                     super.onLost(network);
                     connectToNewNetwork = false;
-                    linkPropertiesChanged = false;
                 }
             };
             connectivityManager.registerNetworkCallback(request, networkCallback);
