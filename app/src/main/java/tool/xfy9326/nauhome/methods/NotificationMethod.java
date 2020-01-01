@@ -9,6 +9,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import tool.xfy9326.nauhome.R;
 
@@ -21,26 +22,24 @@ public class NotificationMethod {
     }
 
     private static void showNotification(Context context, String title, String text) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
 
-            createNotificationChannel(context, notificationManager);
+        createNotificationChannel(context, notificationManager);
 
-            builder.setSmallIcon(R.mipmap.ic_launcher);
-            builder.setContentTitle(title);
-            builder.setContentText(text);
-            builder.setAutoCancel(true);
-            builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            builder.setCategory(NotificationCompat.CATEGORY_MESSAGE);
-            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                    R.mipmap.ic_launcher));
-            notificationManager.notify(NotificationMethod.NOTIFICATION_CODE_NAU_LOGIN, builder.build());
-        }
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle(title);
+        builder.setContentText(text);
+        builder.setAutoCancel(true);
+        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setCategory(NotificationCompat.CATEGORY_MESSAGE);
+        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                R.mipmap.ic_launcher));
+        notificationManager.notify(NotificationMethod.NOTIFICATION_CODE_NAU_LOGIN, builder.build());
     }
 
-    private static void createNotificationChannel(@NonNull Context context, @NonNull NotificationManager notificationManager) {
+    private static void createNotificationChannel(@NonNull Context context, @NonNull NotificationManagerCompat notificationManager) {
         if (Build.VERSION.SDK_INT >= 26) {
             NotificationChannel notificationChannel = notificationManager.getNotificationChannel(CHANNEL_ID);
             if (notificationChannel == null) {
@@ -50,7 +49,6 @@ public class NotificationMethod {
                 notificationChannel.setShowBadge(true);
                 notificationChannel.enableLights(true);
                 notificationChannel.enableVibration(true);
-                notificationChannel.setShowBadge(false);
                 notificationManager.createNotificationChannel(notificationChannel);
             }
         }

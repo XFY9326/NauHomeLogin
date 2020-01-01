@@ -20,11 +20,12 @@ public class CaptivePortalReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent != null && intent.getAction() != null && (intent.getAction().equals(ACTION_MIUI_PORTAL_LOGIN) || intent.getAction().equals(ConnectivityManager.ACTION_CAPTIVE_PORTAL_SIGN_IN))) {
+            Log.d("CaptivePortalReceiver", "Receive Captive Portal Broadcast");
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.MIUI_SPECIAL_SUPPORT.ordinal()) {
                 if (PermissionMethod.hasPermission(context)) {
                     if (NetMethod.connectCorrectWifiWithIp(context)) {
-                        Log.d("AutoLogin", "CaptivePortalReceiver Start Login Service");
+                        Log.d("CaptivePortalReceiver", "Start Login Service");
                         ListenerMethod.startLoginService(context);
                     }
                 }

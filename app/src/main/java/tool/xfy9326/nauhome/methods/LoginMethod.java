@@ -1,45 +1,32 @@
 package tool.xfy9326.nauhome.methods;
 
 import android.util.Base64;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginMethod {
     private static final String ERROR_URL_PARAM = "ErrorMsg=";
-    private final OkHttpClient client;
-    private final String ClientIP;
 
-    public LoginMethod(String clientIP) {
-        this.ClientIP = clientIP;
-        OkHttpClient.Builder client_builder = new OkHttpClient.Builder();
-        client_builder.connectTimeout(5, TimeUnit.SECONDS);
-        client_builder.writeTimeout(2, TimeUnit.SECONDS);
-        client_builder.readTimeout(2, TimeUnit.SECONDS);
-        client = client_builder.build();
+    private static HashMap<String, String> buildLoginForm(String id, String pw, String type) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("DDDDD", ",0," + id.trim() + "@" + type);
+        hashMap.put("upass", pw.trim());
+        return hashMap;
     }
 
-    private static FormBody buildLoginForm(String id, String pw, String type) {
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("DDDDD", ",0," + id.trim() + "@" + type);
-        builder.add("upass", pw.trim());
-        return builder.build();
-    }
-
-    private static FormBody buildLoginOutForm(String id, String pw) {
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("DDDDD", id.trim());
-        builder.add("upass", pw.trim());
-        return builder.build();
+    private static HashMap<String, String> buildLoginOutForm(String id, String pw) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("DDDDD", id.trim());
+        hashMap.put("upass", pw.trim());
+        return hashMap;
     }
 
     private static String buildURL(String ip, boolean isLogin) {
@@ -49,50 +36,97 @@ public class LoginMethod {
                 "&wlanuserip=" + ip;
     }
 
-    public void login(String id, String pw, String type, OnRequestListener onRequestListener) {
+    private static String buildPostParam(HashMap<String, String> postForm) throws UnsupportedEncodingException {
+        StringBuilder paramsString = new StringBuilder();
+        for (Map.Entry<String, String> entry : postForm.entrySet()) {
+            paramsString.append(entry.getKey());
+            paramsString.append("=");
+            paramsString.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            paramsString.append("&");
+        }
+        paramsString.deleteCharAt(paramsString.length() - 1);
+        return paramsString.toString();
+    }
+
+    public static void login(final String ip, final String id, final String pw, final String type, final OnRequestListener onRequestListener) {
         if (id != null && pw != null && type != null) {
-            requestURL(buildURL(ClientIP, true), buildLoginForm(id, pw, type), onRequestListener);
-        }
-    }
-
-    public void logout(String id, String pw, OnRequestListener onRequestListener) {
-        if (id != null && pw != null) {
-            requestURL(buildURL(ClientIP, false), buildLoginOutForm(id, pw), onRequestListener);
-        }
-    }
-
-    private void requestURL(String url, FormBody formBody, final OnRequestListener onRequestListener) {
-        Request.Builder builder = new Request.Builder();
-        builder.url(url);
-        builder.post(formBody);
-        client.newCall(builder.build()).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                if (onRequestListener != null) {
-                    onRequestListener.OnRequest(false, "Login Request Error!");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("LoginMethod", "Login Thread Start");
+                    requestURL(buildURL(ip, true), buildLoginForm(id, pw, type), onRequestListener);
                 }
-            }
+            }).start();
+        }
+    }
 
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) {
-                String url = response.request().url().toString();
-                if (url.contains(ERROR_URL_PARAM)) {
-                    if (onRequestListener != null) {
-                        byte[] msg = Base64.decode(url.substring(url.indexOf(ERROR_URL_PARAM) + ERROR_URL_PARAM.length()), Base64.DEFAULT);
-                        String error = new String(msg);
-                        if ("512".equals(error)) {
-                            error = "AC authentication failure";
+    public static void logout(final String ip, final String id, final String pw, final OnRequestListener onRequestListener) {
+        if (id != null && pw != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("LoginMethod", "Logout Thread Start");
+                    requestURL(buildURL(ip, false), buildLoginOutForm(id, pw), onRequestListener);
+                }
+            }).start();
+        }
+    }
+
+    private static void requestURL(String url, HashMap<String, String> postForm, final OnRequestListener onRequestListener) {
+        HttpURLConnection connection = null;
+        try {
+            URL requestUrl = new URL(url);
+
+            byte[] postParamEntity = buildPostParam(postForm).getBytes();
+
+            connection = (HttpURLConnection) requestUrl.openConnection(Proxy.NO_PROXY);
+            connection.setConnectTimeout(5 * 1000);
+            connection.setReadTimeout(5 * 1000);
+            connection.setInstanceFollowRedirects(true);
+
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", String.valueOf(postParamEntity.length));
+
+            connection.setDoOutput(true);
+            connection.setDoInput(false);
+
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                outputStream.write(postParamEntity);
+
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    String responseUrl = connection.getURL().toString();
+
+                    if (responseUrl.contains(ERROR_URL_PARAM)) {
+                        if (onRequestListener != null) {
+                            byte[] msg = Base64.decode(responseUrl.substring(responseUrl.indexOf(ERROR_URL_PARAM) + ERROR_URL_PARAM.length()), Base64.DEFAULT);
+                            String error = new String(msg);
+                            if ("512".equals(error)) {
+                                error = "AC authentication failure";
+                            }
+                            onRequestListener.OnRequest(false, error);
                         }
-                        onRequestListener.OnRequest(false, error);
+                    } else {
+                        if (onRequestListener != null) {
+                            onRequestListener.OnRequest(true, "");
+                        }
                     }
                 } else {
                     if (onRequestListener != null) {
-                        onRequestListener.OnRequest(true, "");
+                        onRequestListener.OnRequest(false, "Login Request Error!");
                     }
                 }
-                response.close();
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (onRequestListener != null) {
+                onRequestListener.OnRequest(false, "Login Request Error!");
+            }
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
     }
 
     public interface OnRequestListener {

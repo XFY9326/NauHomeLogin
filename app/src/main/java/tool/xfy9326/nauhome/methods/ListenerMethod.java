@@ -43,7 +43,7 @@ public class ListenerMethod {
                         connectToNewNetwork = false;
                         if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL) &&
                                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                            Log.d("AutoLogin", "NetworkCallback Start Login Service");
+                            Log.d("NetworkCallback", "Start Login Service");
                             startLoginService(context);
                         }
                     }

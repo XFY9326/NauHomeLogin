@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Auto Login</string>
+    <string name="app_version">v%1$s(%2$d)</string>
     <string name="app_long_name">i-NAU-Home Auto Login</string>
     <string name="permission_granted">Permission granted!</string>
     <string name="permission_denied">Permission denied!</string>
@@ -8,9 +9,12 @@
     <string name="login_id">Login ID:</string>
     <string name="login_password">Password:</string>
     <string name="login_type">Login Type:</string>
+    <string name="set_it">Set it now</string>
     <string name="save">Save</string>
     <string name="permission_attention">You must grant permission first!</string>
-    <string name="permission_status">Permission status:</string>
+    <string name="permission_status">Grant permission first!\nNow status:</string>
+    <string name="gps_attention">You must turn on GPS to get Wifi SSID! Wifi SSID is used to login correct wifi.</string>
+    <string name="turn_on_gps">GPS Settings</string>
     <string name="granted">Granted</string>
     <string name="need_grant">Need Grant</string>
     <string name="save_success">Saved successfully!</string>
@@ -19,14 +23,16 @@
     <string name="logout_attention">If you can\'t login on other devices because of \'Limit User Err\', try logout here.</string>
     <string name="logout">Logout</string>
     <string name="manual_login">Manual Login</string>
-    <string name="manual_login_attention">If you have already connect to wifi and can\'t auto login, try manual login here.</string>
+    <string name="manual_login_attention">If you have already connected to wifi and could\'t auto login, try manual login here.</string>
     <string name="logout_success">Logout Success!</string>
     <string name="logout_failed">Logout Failed! %1$s</string>
     <string name="about">About</string>
-    <string name="enable_listener">Enable Listener</string>
+    <string name="enable_listener">Listener Settings</string>
     <string name="enabled">Enabled!</string>
     <string name="already_logon">You have already logon.</string>
-    <string name="only_support_miui_system">This function only support miui system!</string>
+    <string name="login_result_error">Login result check error!</string>
+    <string name="only_support_miui_system">This function only support MIUI system!</string>
+    <string name="miui_system_support_attention">You should also enable receiving boot broadcast in system settings!</string>
     <string name="need_disable_notification_service">You need disable notification listener service first!</string>
     <string name="need_disable_accessibility_service">You need disable accessibility service first!</string>
     <string name="listener_service_attention">Choose and enable one wifi listener to login automatically.</string>

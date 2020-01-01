@@ -19,14 +19,14 @@ public class WifiListenerNotificationService extends NotificationListenerService
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("AutoLogin", "WifiListenerNotificationService Start Running");
+        Log.d("WifiListenerNotificationService", "Start Running");
         initListener();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("AutoLogin", "WifiListenerNotificationService Stop Running");
+        Log.d("WifiListenerNotificationService", "Stop Running");
         networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
     }
 
@@ -37,7 +37,7 @@ public class WifiListenerNotificationService extends NotificationListenerService
         } else if (!PermissionMethod.hasPermission(this)) {
             Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
         } else if (networkCallback == null) {
-            Log.d("AutoLogin", "WifiListenerNotificationService NetworkCallback Init");
+            Log.d("WifiListenerNotificationService", "NetworkCallback Init");
             networkCallback = ListenerMethod.startWifiListener(this);
         }
     }

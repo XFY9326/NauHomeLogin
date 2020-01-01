@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
+import tool.xfy9326.nauhome.BuildConfig;
 import tool.xfy9326.nauhome.Config;
 import tool.xfy9326.nauhome.R;
 import tool.xfy9326.nauhome.methods.BaseMethod;
@@ -56,6 +57,7 @@ public class MainActivity extends Activity {
 
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.app_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
         builder.setMessage(R.string.about_application);
         builder.setPositiveButton(android.R.string.yes, null);
         builder.show();
@@ -85,7 +87,7 @@ public class MainActivity extends Activity {
                             chosenListenerType = which;
                         }
                     });
-                    builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(R.string.set_it, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (chosenListenerType == Config.WIFI_LISTENER_TYPE.ACCESSIBILITY_SERVICE.ordinal()) {
@@ -121,6 +123,7 @@ public class MainActivity extends Activity {
                                     Toast.makeText(MainActivity.this, R.string.only_support_miui_system, Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(MainActivity.this, R.string.enabled, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, R.string.miui_system_support_attention, Toast.LENGTH_SHORT).show();
                                     sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
                                 }
                             }
@@ -148,6 +151,14 @@ public class MainActivity extends Activity {
         Button grant = findViewById(R.id.button_grant_permission);
         Button login = findViewById(R.id.button_login);
         Button logout = findViewById(R.id.button_logout);
+        Button gps = findViewById(R.id.button_gps_settings);
+
+        gps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,19 +21,19 @@ public class WifiListenerAccessibilityService extends AccessibilityService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("AutoLogin", "WifiListenerAccessibilityService Start Running");
+        Log.d("WifiListenerAccessibilityService", "Start Running");
         initListener();
     }
 
     @Override
     public void onInterrupt() {
-        Log.d("AutoLogin", "WifiListenerAccessibilityService Interrupt");
+        Log.d("WifiListenerAccessibilityService", "Interrupt");
         networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
     }
 
     @Override
     public void onDestroy() {
-        Log.d("AutoLogin", "WifiListenerAccessibilityService Stop Running");
+        Log.d("WifiListenerAccessibilityService", "Stop Running");
         networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
         super.onDestroy();
     }
@@ -58,7 +58,7 @@ public class WifiListenerAccessibilityService extends AccessibilityService {
             Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
             finishService();
         } else if (networkCallback == null) {
-            Log.d("AutoLogin", "WifiListenerAccessibilityService NetworkCallback Init");
+            Log.d("WifiListenerAccessibilityService", "NetworkCallback Init");
             networkCallback = ListenerMethod.startWifiListener(this);
         }
     }

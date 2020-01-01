@@ -40,10 +40,10 @@ public class NetMethod {
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager != null) {
             String ssid = wifiManager.getConnectionInfo().getSSID().trim();
-            if (ssid.length() >= 2) {
-                ssid = ssid.substring(1, ssid.length() - 1);
+            if (ssid.length() >= 2 && ssid.startsWith("\"") && ssid.endsWith("\"")) {
+                ssid = ssid.substring(1, ssid.length() - 1).trim();
             }
-            return ssid.trim();
+            return ssid;
         }
         return null;
     }
