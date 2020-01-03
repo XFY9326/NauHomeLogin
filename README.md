@@ -1,10 +1,16 @@
 # NauHomeLogin
-i-NAU-* wifi captive portal auto login auto login application.  
+
+i-NAU-* Wifi 热点认证自动登录程序  
+i-NAU-* Wifi captive portal auto login auto login application.  
+
+目前支持大多数安卓设备，但是Vivo和Oppo的设备不受支持  
 Now support most of devices except Vivo and Oppo.  
-Already successfully test in MIUI and EMUI.  
+
+对于MIUI和EMUI的大部分设备来说，都可以使用  
+Can be used on most MIUI and EMUI devices.  
 
     NauHomeLogin Android Application
-    Copyright (C) 2019  XFY9326
+    Copyright (C) 2020  XFY9326
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
