@@ -21,9 +21,11 @@ public class LoginService extends Service {
     public static final String OPERATION_TAG = "OPERATION_TAG";
     public static final int OPERATION_LOGIN = 0;
     public static final int OPERATION_LOGOUT = 1;
+
     public static final String REPORT_TAG = "REPORT_TAG";
     public static final int REPORT_NOTIFICATION = 2;
     public static final int REPORT_TOAST = 3;
+
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -61,6 +63,7 @@ public class LoginService extends Service {
                 && sharedPreferences.contains(Config.PREFERENCE_LOGIN_ID)
                 && sharedPreferences.contains(Config.PREFERENCE_PASSWORD)) {
             Log.d("LoginService", "Try Login");
+            // Login Here
             LoginMethod.login(ip, sharedPreferences.getString(Config.PREFERENCE_LOGIN_ID, null),
                     sharedPreferences.getString(Config.PREFERENCE_PASSWORD, null),
                     sharedPreferences.getString(Config.PREFERENCE_LOGIN_TYPE, null), new LoginMethod.OnRequestListener() {
@@ -80,6 +83,7 @@ public class LoginService extends Service {
         if (sharedPreferences.contains(Config.PREFERENCE_LOGIN_ID)
                 && sharedPreferences.contains(Config.PREFERENCE_PASSWORD)) {
             Log.d("LoginService", "Try Logout");
+            // Logout Here
             LoginMethod.logout(ip, sharedPreferences.getString(Config.PREFERENCE_LOGIN_ID, null),
                     sharedPreferences.getString(Config.PREFERENCE_PASSWORD, null), new LoginMethod.OnRequestListener() {
                         @Override

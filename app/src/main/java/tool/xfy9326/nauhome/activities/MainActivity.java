@@ -29,6 +29,7 @@ import tool.xfy9326.nauhome.methods.PermissionMethod;
 import tool.xfy9326.nauhome.services.LoginService;
 
 public class MainActivity extends Activity {
+    private static final String EMPTY = "";
     private SharedPreferences sharedPreferences;
     private int chosenListenerType = -1;
 
@@ -137,9 +138,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        loginID.setText(sharedPreferences.getString(Config.PREFERENCE_LOGIN_ID, ""));
-        password.setText(sharedPreferences.getString(Config.PREFERENCE_PASSWORD, ""));
-        String savedType = sharedPreferences.getString(Config.PREFERENCE_LOGIN_TYPE, "");
+        loginID.setText(sharedPreferences.getString(Config.PREFERENCE_LOGIN_ID, EMPTY));
+        password.setText(sharedPreferences.getString(Config.PREFERENCE_PASSWORD, EMPTY));
+        String savedType = sharedPreferences.getString(Config.PREFERENCE_LOGIN_TYPE, EMPTY);
         for (int i = 0; i < login_type.length; i++) {
             if (login_type[i].equals(savedType)) {
                 loginType.setSelection(i);

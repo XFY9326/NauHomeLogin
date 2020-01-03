@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Auto Login</string>
-    <string name="app_version">v%1$s(%2$d)</string>
+    <string name="app_name">Wifi Auto Login</string>
+    <string name="app_version">Current Version: v%1$s(%2$d)</string>
     <string name="app_long_name">i-NAU-Home Auto Login</string>
     <string name="permission_granted">Permission granted!</string>
     <string name="permission_denied">Permission denied!</string>

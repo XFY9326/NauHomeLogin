@@ -23,7 +23,7 @@
 
     <string-array name="wifi_listener_type">
         <item>Accessibility Service</item>
-        <item>Notification Service</item>
+        <item>Notification Listener Service</item>
         <item>MIUI Special Support</item>
     </string-array>
 </resources>

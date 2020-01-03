@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wifi自动登录</string>
+    <string name="app_version">当前版本：v%1$s(%2$d)</string>
+    <string name="about">关于</string>
+    <string name="enable_listener">监听设置</string>
+    <string name="enabled">已启用！</string>
+    <string name="gps_attention">你必须启用GPS来获取Wifi SSID，用于判断连接的Wifi是否正确</string>
+    <string name="granted">已授权</string>
+    <string name="login_id">用户名：</string>
+    <string name="login_password">密码：</string>
+    <string name="login_type">类型：</string>
+    <string name="logout">注销</string>
+    <string name="login_success">自动登录成功！</string>
+    <string name="login_result_error">登陆结果检查出错！</string>
+    <string name="logout_success">注销成功</string>
+    <string name="manual_login">手动登录</string>
+    <string name="already_logon">你已经登录</string>
+    <string name="app_long_name">i-NAU-Home 自动登录</string>
+    <string name="save">保存</string>
+    <string name="save_success">保存成功！</string>
+    <string name="set_it">设置</string>
+    <string name="turn_on_gps">GPS设置</string>
+    <string name="permission_granted">权限已授予！</string>
+    <string name="permission_denied">授权失败！</string>
+    <string name="start_settings_accessibility_activity_error">无法启动辅助服务设置！</string>
+    <string name="start_settings_notification_activity_error">无法启动通知监听服务设置！</string>
+    <string name="need_grant">需要授予</string>
+    <string name="notification_channel_des">显示自动登录结果</string>
+    <string name="permission_attention">你必须先授予权限！</string>
+    <string name="only_support_miui_system">这个功能支持支持MIUI系统！</string>
+    <string name="not_enabled_listener">你还没有选择Wifi监听器！</string>
+    <string name="notification_channel">i-NAU 自动登录通知</string>
+    <string name="manual_login_attention">如果你已经连接Wifi但是无法自动登录，可以尝试手动登录</string>
+    <string name="miui_system_support_attention">你还需要在系统设置中设置自启动！</string>
+    <string name="need_disable_accessibility_service">你首先需要禁用辅助服务！</string>
+    <string name="need_disable_notification_service">你首先需要禁用通知监听服务！</string>
+    <string name="logout_attention">如果你在其他设备上由于 \'Limit User Err\' 无法登录，可以先注销本次登录</string>
+    <string name="listener_service_attention">选择并启用一个Wifi监听器用来自动登录</string>
+    <string name="listener_service_introduce">这个服务被用于监听网络变化并自动登录i-NAU-* Wifi</string>
+    <string name="about_application">作者：XFY9326\n\n开源网站：\nhttps://github.com/XFY9326/NauHomeLogin\n\n开源协议：GPL 3.0</string>
+    <string name="permission_status">请先授予权限！当前状态：</string>
+    <string name="login_failed">自动登录失败！%1$s</string>
+    <string name="logout_failed">注销失败！%1$s</string>
+</resources>
