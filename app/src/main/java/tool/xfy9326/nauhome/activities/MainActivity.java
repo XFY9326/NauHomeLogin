@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.app_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
         builder.setMessage(R.string.about_application);
-        builder.setPositiveButton(android.R.string.yes, null);
+        builder.setPositiveButton(android.R.string.ok, null);
         builder.show();
     }
 

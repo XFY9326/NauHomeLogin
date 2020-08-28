@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
+
     defaultConfig {
         applicationId "tool.xfy9326.nauhome"
         minSdkVersion 24
-        targetSdkVersion 29
-        versionCode 3
-        versionName "1.2"
+        targetSdkVersion 30
+        versionCode 4
+        versionName "1.3"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -19,5 +21,5 @@ android {
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
 }
