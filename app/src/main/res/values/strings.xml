@@ -35,7 +35,7 @@
     <string name="miui_system_support_attention">You should also enable receiving boot broadcast in system settings!</string>
     <string name="need_disable_notification_service">You need disable notification listener service first!</string>
     <string name="need_disable_accessibility_service">You need disable accessibility service first!</string>
-    <string name="listener_service_attention">Choose and enable one wifi listener to login automatically.</string>
+    <string name="listener_service_attention">Choose and enable one wifi listener to login automatically. Lock App in background and enable boot broadcast first.</string>
     <string name="not_enabled_listener">This wifi listener was\'t been chosen in application.</string>
     <string name="about_application">Made By XFY9326\n\nOpen Source Website: \nhttps://github.com/XFY9326/NauHomeLogin\n\nOpen Source Licence: GPL 3.0</string>
     <string name="listener_service_introduce">This service is used to listening to network changes and login i-NAU-* Wifi.</string>

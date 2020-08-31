@@ -28,7 +28,7 @@
     <string name="need_grant">需要授予</string>
     <string name="notification_channel_des">显示自动登录结果</string>
     <string name="permission_attention">你必须先授予权限！</string>
-    <string name="only_support_miui_system">这个功能支持支持MIUI系统！</string>
+    <string name="only_support_miui_system">这个功能仅支持MIUI系统！</string>
     <string name="not_enabled_listener">你还没有选择Wifi监听器！</string>
     <string name="notification_channel">i-NAU 自动登录通知</string>
     <string name="manual_login_attention">如果你已经连接Wifi但是无法自动登录，可以尝试手动登录</string>
@@ -36,7 +36,7 @@
     <string name="need_disable_accessibility_service">你首先需要禁用辅助服务！</string>
     <string name="need_disable_notification_service">你首先需要禁用通知监听服务！</string>
     <string name="logout_attention">如果你在其他设备上由于 \'Limit User Err\' 无法登录，可以先注销本次登录</string>
-    <string name="listener_service_attention">选择并启用一个Wifi监听器用来自动登录</string>
+    <string name="listener_service_attention">选择并启用一个Wifi监听器用来自动登录，请提前设置后台运行锁定与自启动权限</string>
     <string name="listener_service_introduce">这个服务被用于监听网络变化并自动登录i-NAU-* Wifi</string>
     <string name="about_application">作者：XFY9326\n\n开源网站：\nhttps://github.com/XFY9326/NauHomeLogin\n\n开源协议：GPL 3.0</string>
     <string name="permission_status">请先授予权限！当前状态：</string>

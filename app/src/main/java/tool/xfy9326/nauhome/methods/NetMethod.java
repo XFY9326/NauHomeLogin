@@ -67,4 +67,9 @@ public class NetMethod {
         }
         return null;
     }
+
+    public static void requestReevaluateNetwork(Context context, boolean hasConnection) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        connectivityManager.reportNetworkConnectivity(null, hasConnection);
+    }
 }

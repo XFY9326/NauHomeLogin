@@ -27,6 +27,7 @@ public class LoginService extends Service {
     public static final int REPORT_TOAST = 3;
 
     private SharedPreferences sharedPreferences;
+    private boolean justLogout = false;
 
     @Override
     public void onCreate() {
@@ -50,7 +51,11 @@ public class LoginService extends Service {
                     int operation = intent.getIntExtra(OPERATION_TAG, -1);
                     int report = intent.getIntExtra(REPORT_TAG, -1);
                     if (operation == OPERATION_LOGIN) {
-                        login(ip, report);
+                        if (justLogout) {
+                            justLogout = false;
+                        } else {
+                            login(ip, report);
+                        }
                     } else if (operation == OPERATION_LOGOUT) {
                         logout(ip, report);
                     }
@@ -72,6 +77,7 @@ public class LoginService extends Service {
                         @Override
                         public void OnRequest(boolean isSuccess, String errorMsg) {
                             if (isSuccess) {
+                                NetMethod.requestReevaluateNetwork(LoginService.this, true);
                                 report(reportType, getString(R.string.login_success));
                             } else {
                                 report(reportType, getString(R.string.login_failed, errorMsg));
@@ -91,6 +97,8 @@ public class LoginService extends Service {
                         @Override
                         public void OnRequest(boolean isSuccess, String errorMsg) {
                             if (isSuccess) {
+                                justLogout = true;
+                                NetMethod.requestReevaluateNetwork(LoginService.this, false);
                                 report(reportType, getString(R.string.logout_success));
                             } else {
                                 report(reportType, getString(R.string.logout_failed, errorMsg));
