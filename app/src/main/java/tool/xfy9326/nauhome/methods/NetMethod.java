@@ -12,6 +12,7 @@ import androidx.preference.PreferenceManager;
 import tool.xfy9326.nauhome.Config;
 
 public class NetMethod {
+    private static final String CONNECTION_CHECK_URL = "http://connect.rom.miui.com/generate_204";
 
     public static boolean needCaptivePortalLogin(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -24,14 +25,21 @@ public class NetMethod {
         return false;
     }
 
-    public static boolean connectCorrectWifiWithIp(Context context) {
+    public static boolean connectCorrectIp(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (sharedPreferences.contains(Config.PREFERENCE_WIFI_SSID)) {
+            String ip = getConnectedWifiIp(context);
+            return ip != null && !ip.equals("0.0.0.0") && !ip.equals("127.0.0.1");
+        }
+        return false;
+    }
+
+    public static boolean connectCorrectWifi(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (sharedPreferences.contains(Config.PREFERENCE_WIFI_SSID)) {
             String ssid = NetMethod.getConnectedWifiName(context);
-            String ip = getConnectedWifiIp(context);
             String saved_ssid = sharedPreferences.getString(Config.PREFERENCE_WIFI_SSID, null);
-            return ssid != null && saved_ssid != null && ssid.contains(saved_ssid) &&
-                    ip != null && !ip.equals("0.0.0.0") && !ip.equals("127.0.0.1");
+            return ssid != null && saved_ssid != null && ssid.contains(saved_ssid);
         }
         return false;
     }

@@ -24,7 +24,7 @@ public class CaptivePortalReceiver extends BroadcastReceiver {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.MIUI_SPECIAL_SUPPORT.ordinal()) {
                 if (PermissionMethod.hasPermission(context)) {
-                    if (NetMethod.connectCorrectWifiWithIp(context)) {
+                    if (NetMethod.connectCorrectWifi(context)) {
                         Log.d("CaptivePortalReceiver", "Start Login Service");
                         ListenerMethod.startLoginService(context);
                     }

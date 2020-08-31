@@ -83,13 +83,11 @@ public class LoginMethod {
             connection.setConnectTimeout(5 * 1000);
             connection.setReadTimeout(5 * 1000);
             connection.setInstanceFollowRedirects(true);
+            connection.setUseCaches(false);
 
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             connection.setRequestProperty("Content-Length", String.valueOf(postParamEntity.length));
-
-            connection.setDoOutput(true);
-            connection.setDoInput(false);
 
             try (OutputStream outputStream = connection.getOutputStream()) {
                 outputStream.write(postParamEntity);

@@ -42,16 +42,18 @@ public class LoginService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final String ip = NetMethod.getConnectedWifiIp(this);
-        if (ip != null) {
-            if (intent != null) {
-                Log.d("LoginService", "Receive Start Service Command");
-                int operation = intent.getIntExtra(OPERATION_TAG, -1);
-                int report = intent.getIntExtra(REPORT_TAG, -1);
-                if (operation == OPERATION_LOGIN) {
-                    login(ip, report);
-                } else if (operation == OPERATION_LOGOUT) {
-                    logout(ip, report);
+        if (NetMethod.connectCorrectWifi(this)) {
+            final String ip = NetMethod.getConnectedWifiIp(this);
+            if (ip != null) {
+                if (intent != null) {
+                    Log.d("LoginService", "Receive Start Service Command");
+                    int operation = intent.getIntExtra(OPERATION_TAG, -1);
+                    int report = intent.getIntExtra(REPORT_TAG, -1);
+                    if (operation == OPERATION_LOGIN) {
+                        login(ip, report);
+                    } else if (operation == OPERATION_LOGOUT) {
+                        logout(ip, report);
+                    }
                 }
             }
         }
@@ -100,21 +102,23 @@ public class LoginService extends Service {
 
     private void report(int reportType, String msg) {
         Log.d("LoginService", "Report Result");
-        if (NetMethod.connectCorrectWifiWithIp(LoginService.this)) {
-            if (reportType == REPORT_NOTIFICATION) {
-                NotificationMethod.reportLoginResult(LoginService.this, getString(R.string.app_name), msg);
-            } else if (reportType == REPORT_TOAST) {
-                Looper.prepare();
-                Toast.makeText(LoginService.this, msg, Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-        } else {
-            if (reportType == REPORT_NOTIFICATION) {
-                NotificationMethod.reportLoginResult(LoginService.this, getString(R.string.app_name), getString(R.string.login_result_error));
-            } else if (reportType == REPORT_TOAST) {
-                Looper.prepare();
-                Toast.makeText(LoginService.this, R.string.login_result_error, Toast.LENGTH_SHORT).show();
-                Looper.loop();
+        if (NetMethod.connectCorrectWifi(this)) {
+            if (NetMethod.connectCorrectIp(LoginService.this)) {
+                if (reportType == REPORT_NOTIFICATION) {
+                    NotificationMethod.reportLoginResult(LoginService.this, getString(R.string.app_name), msg);
+                } else if (reportType == REPORT_TOAST) {
+                    Looper.prepare();
+                    Toast.makeText(LoginService.this, msg, Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                }
+            } else {
+                if (reportType == REPORT_NOTIFICATION) {
+                    NotificationMethod.reportLoginResult(LoginService.this, getString(R.string.app_name), getString(R.string.login_result_error));
+                } else if (reportType == REPORT_TOAST) {
+                    Looper.prepare();
+                    Toast.makeText(LoginService.this, R.string.login_result_error, Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                }
             }
         }
     }
