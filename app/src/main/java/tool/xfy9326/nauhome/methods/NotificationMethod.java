@@ -17,7 +17,7 @@ import tool.xfy9326.nauhome.R;
 import tool.xfy9326.nauhome.activities.MainActivity;
 
 public class NotificationMethod {
-    public static final int NOTIFICATION_CODE_FOREGROUND = 1090;
+    public static final int NOTIFICATION_CODE_FOREGROUND_LISTENER = 1090;
     private static final int NOTIFICATION_CODE_LOGIN_NOTIFY = 1088;
     private static final String NOTIFY_CHANNEL_ID = "channel_notify";
     private static final String FOREGROUND_CHANNEL_ID = "channel_foreground";

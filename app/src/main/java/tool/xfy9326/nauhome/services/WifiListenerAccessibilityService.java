@@ -4,7 +4,6 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Build;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
@@ -21,12 +20,11 @@ public class WifiListenerAccessibilityService extends AccessibilityService {
     private boolean enableForegroundService = true;
 
     @Override
-    protected void onServiceConnected() {
-        super.onServiceConnected();
-        Log.d("WifiListenerAccessibilityService", "Service Connected");
+    public void onCreate() {
+        super.onCreate();
         enableForegroundService = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREFERENCE_ENABLE_FOREGROUND_SERVICE, true);
         if (enableForegroundService) {
-            startForeground(NotificationMethod.NOTIFICATION_CODE_FOREGROUND, NotificationMethod.getForegroundNotification(this));
+            startForeground(NotificationMethod.NOTIFICATION_CODE_FOREGROUND_LISTENER, NotificationMethod.getForegroundNotification(this));
         }
         initListener();
     }
@@ -36,17 +34,16 @@ public class WifiListenerAccessibilityService extends AccessibilityService {
     }
 
     @Override
+    public void onAccessibilityEvent(AccessibilityEvent event) {
+    }
+
+    @Override
     public void onDestroy() {
-        Log.d("WifiListenerAccessibilityService", "Stop Running");
         networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
         if (enableForegroundService) {
             stopForeground(true);
         }
         super.onDestroy();
-    }
-
-    @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {
     }
 
     private void finishService() {
@@ -68,7 +65,6 @@ public class WifiListenerAccessibilityService extends AccessibilityService {
             Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
             finishService();
         } else if (networkCallback == null) {
-            Log.d("WifiListenerAccessibilityService", "NetworkCallback Init");
             networkCallback = ListenerMethod.startWifiListener(this);
         }
     }

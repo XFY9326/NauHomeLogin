@@ -3,7 +3,6 @@ package tool.xfy9326.nauhome.services;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.service.notification.NotificationListenerService;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.preference.PreferenceManager;
@@ -21,10 +20,9 @@ public class WifiListenerNotificationService extends NotificationListenerService
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("WifiListenerNotificationService", "Start Running");
         enableForegroundService = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREFERENCE_ENABLE_FOREGROUND_SERVICE, true);
         if (enableForegroundService) {
-            startForeground(NotificationMethod.NOTIFICATION_CODE_FOREGROUND, NotificationMethod.getForegroundNotification(this));
+            startForeground(NotificationMethod.NOTIFICATION_CODE_FOREGROUND_LISTENER, NotificationMethod.getForegroundNotification(this));
         }
         initListener();
     }
@@ -32,7 +30,6 @@ public class WifiListenerNotificationService extends NotificationListenerService
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("WifiListenerNotificationService", "Stop Running");
         networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
         if (enableForegroundService) {
             stopForeground(true);
@@ -46,7 +43,6 @@ public class WifiListenerNotificationService extends NotificationListenerService
         } else if (!PermissionMethod.hasPermission(this)) {
             Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
         } else if (networkCallback == null) {
-            Log.d("WifiListenerNotificationService", "NetworkCallback Init");
             networkCallback = ListenerMethod.startWifiListener(this);
         }
     }

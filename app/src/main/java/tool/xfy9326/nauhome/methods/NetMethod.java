@@ -12,8 +12,6 @@ import androidx.preference.PreferenceManager;
 import tool.xfy9326.nauhome.Config;
 
 public class NetMethod {
-    private static final String CONNECTION_CHECK_URL = "http://connect.rom.miui.com/generate_204";
-
     public static boolean needCaptivePortalLogin(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {

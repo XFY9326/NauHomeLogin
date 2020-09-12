@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginMethod {
+public class CaptivePortalLoginMethod {
     private static final String ERROR_URL_PARAM = "ErrorMsg=";
 
     private static HashMap<String, String> buildLoginForm(String id, String pw, String type) {
@@ -80,8 +80,8 @@ public class LoginMethod {
             byte[] postParamEntity = buildPostParam(postForm).getBytes();
 
             connection = (HttpURLConnection) requestUrl.openConnection(Proxy.NO_PROXY);
-            connection.setConnectTimeout(5 * 1000);
-            connection.setReadTimeout(5 * 1000);
+            connection.setConnectTimeout(2 * 1000);
+            connection.setReadTimeout(2 * 1000);
             connection.setInstanceFollowRedirects(true);
             connection.setUseCaches(false);
 

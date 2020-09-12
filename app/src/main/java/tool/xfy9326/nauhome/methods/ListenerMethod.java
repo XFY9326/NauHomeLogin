@@ -1,17 +1,13 @@
 package tool.xfy9326.nauhome.methods;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import tool.xfy9326.nauhome.services.LoginService;
 
 public class ListenerMethod {
 
@@ -43,8 +39,7 @@ public class ListenerMethod {
                         connectToNewNetwork = false;
                         if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL) &&
                                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                            Log.d("NetworkCallback", "Start Login Service");
-                            startLoginService(context);
+                            LoginInstance.getInstance().login(LoginInstance.REPORT_NOTIFICATION);
                         }
                     }
                     super.onCapabilitiesChanged(network, networkCapabilities);
@@ -60,12 +55,6 @@ public class ListenerMethod {
             return networkCallback;
         }
         return null;
-    }
-
-    public static void startLoginService(Context context) {
-        context.startService(new Intent(context, LoginService.class)
-                .putExtra(LoginService.OPERATION_TAG, LoginService.OPERATION_LOGIN)
-                .putExtra(LoginService.REPORT_TAG, LoginService.REPORT_NOTIFICATION));
     }
 
     public static ConnectivityManager.NetworkCallback stopWifiListener(Context context, ConnectivityManager.NetworkCallback networkCallback) {

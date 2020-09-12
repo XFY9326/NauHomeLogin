@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
 import tool.xfy9326.nauhome.Config;
-import tool.xfy9326.nauhome.methods.ListenerMethod;
+import tool.xfy9326.nauhome.methods.LoginInstance;
 import tool.xfy9326.nauhome.methods.NetMethod;
 import tool.xfy9326.nauhome.methods.PermissionMethod;
 
@@ -22,11 +21,9 @@ public class CaptivePortalReceiver extends BroadcastReceiver {
         if (intent != null && intent.getAction() != null && (intent.getAction().equals(ACTION_MIUI_PORTAL_LOGIN) || intent.getAction().equals(ConnectivityManager.ACTION_CAPTIVE_PORTAL_SIGN_IN))) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.MIUI_SPECIAL_SUPPORT.ordinal()) {
-                Log.d("CaptivePortalReceiver", "Receive Captive Portal Broadcast");
                 if (PermissionMethod.hasPermission(context)) {
                     if (NetMethod.connectCorrectWifi(context)) {
-                        Log.d("CaptivePortalReceiver", "Start Login Service");
-                        ListenerMethod.startLoginService(context);
+                        LoginInstance.getInstance().login(LoginInstance.REPORT_NOTIFICATION);
                     }
                 }
             }
