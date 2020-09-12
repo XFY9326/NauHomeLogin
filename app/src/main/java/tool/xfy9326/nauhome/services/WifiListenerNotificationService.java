@@ -11,15 +11,21 @@ import androidx.preference.PreferenceManager;
 import tool.xfy9326.nauhome.Config;
 import tool.xfy9326.nauhome.R;
 import tool.xfy9326.nauhome.methods.ListenerMethod;
+import tool.xfy9326.nauhome.methods.NotificationMethod;
 import tool.xfy9326.nauhome.methods.PermissionMethod;
 
 public class WifiListenerNotificationService extends NotificationListenerService {
     private ConnectivityManager.NetworkCallback networkCallback;
+    private boolean enableForegroundService = true;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d("WifiListenerNotificationService", "Start Running");
+        enableForegroundService = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREFERENCE_ENABLE_FOREGROUND_SERVICE, true);
+        if (enableForegroundService) {
+            startForeground(NotificationMethod.NOTIFICATION_CODE_FOREGROUND, NotificationMethod.getForegroundNotification(this));
+        }
         initListener();
     }
 
@@ -28,6 +34,9 @@ public class WifiListenerNotificationService extends NotificationListenerService
         super.onDestroy();
         Log.d("WifiListenerNotificationService", "Stop Running");
         networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
+        if (enableForegroundService) {
+            stopForeground(true);
+        }
     }
 
     private void initListener() {

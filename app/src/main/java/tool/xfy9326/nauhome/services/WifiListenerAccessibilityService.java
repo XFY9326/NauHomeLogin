@@ -13,28 +13,35 @@ import androidx.preference.PreferenceManager;
 import tool.xfy9326.nauhome.Config;
 import tool.xfy9326.nauhome.R;
 import tool.xfy9326.nauhome.methods.ListenerMethod;
+import tool.xfy9326.nauhome.methods.NotificationMethod;
 import tool.xfy9326.nauhome.methods.PermissionMethod;
 
 public class WifiListenerAccessibilityService extends AccessibilityService {
     private ConnectivityManager.NetworkCallback networkCallback;
+    private boolean enableForegroundService = true;
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.d("WifiListenerAccessibilityService", "Start Running");
+    protected void onServiceConnected() {
+        super.onServiceConnected();
+        Log.d("WifiListenerAccessibilityService", "Service Connected");
+        enableForegroundService = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREFERENCE_ENABLE_FOREGROUND_SERVICE, true);
+        if (enableForegroundService) {
+            startForeground(NotificationMethod.NOTIFICATION_CODE_FOREGROUND, NotificationMethod.getForegroundNotification(this));
+        }
         initListener();
     }
 
     @Override
     public void onInterrupt() {
-        Log.d("WifiListenerAccessibilityService", "Interrupt");
-        networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
     }
 
     @Override
     public void onDestroy() {
         Log.d("WifiListenerAccessibilityService", "Stop Running");
         networkCallback = ListenerMethod.stopWifiListener(this, networkCallback);
+        if (enableForegroundService) {
+            stopForeground(true);
+        }
         super.onDestroy();
     }
 
@@ -43,6 +50,9 @@ public class WifiListenerAccessibilityService extends AccessibilityService {
     }
 
     private void finishService() {
+        if (enableForegroundService) {
+            stopForeground(true);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             disableSelf();
         }

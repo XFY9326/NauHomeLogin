@@ -13,13 +13,15 @@
     <string name="save">Save</string>
     <string name="permission_attention">You must grant permission first!</string>
     <string name="permission_status">Grant permission first!\nNow status:</string>
-    <string name="gps_attention">You must turn on GPS to get Wifi SSID! Wifi SSID is used to login correct wifi.</string>
+    <string name="gps_attention">You must turn on GPS to get Wifi SSID! Wifi SSID is necessary for checking correct wifi.</string>
     <string name="turn_on_gps">GPS Settings</string>
     <string name="granted">Granted</string>
     <string name="need_grant">Need Grant</string>
     <string name="save_success">Saved successfully!</string>
     <string name="notification_channel">i-NAU Auto Login Notification</string>
+    <string name="foreground_channel">Foreground Notification</string>
     <string name="notification_channel_des">Report auto login result</string>
+    <string name="foreground_channel_des">Show foreground notification</string>
     <string name="logout_attention">If you can\'t login on other devices because of \'Limit User Err\', try logout here.</string>
     <string name="logout">Logout</string>
     <string name="manual_login">Manual Login</string>
@@ -41,4 +43,7 @@
     <string name="listener_service_introduce">This service is used to listening to network changes and login i-NAU-* Wifi.</string>
     <string name="start_settings_accessibility_activity_error">Unable to launch accessibility service settings!</string>
     <string name="start_settings_notification_activity_error">Unable to launch notification listener service settings!</string>
+    <string name="auto_login_service">Wifi Auto Login Service</string>
+    <string name="enable_foreground_service">Enable foreground service. Show notification to make sure service running in background.</string>
+    <string name="manually_restart_service">Manually restart service to take effect</string>
 </resources>

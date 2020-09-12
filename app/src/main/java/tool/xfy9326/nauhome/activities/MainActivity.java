@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -149,6 +151,7 @@ public class MainActivity extends Activity {
         }
 
         final Button save = findViewById(R.id.button_save);
+        CheckBox foreground = findViewById(R.id.button_foreground_service);
         Button grant = findViewById(R.id.button_grant_permission);
         Button login = findViewById(R.id.button_login);
         Button logout = findViewById(R.id.button_logout);
@@ -158,6 +161,15 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+
+        foreground.setChecked(sharedPreferences.getBoolean(Config.PREFERENCE_ENABLE_FOREGROUND_SERVICE, true));
+        foreground.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPreferences.edit().putBoolean(Config.PREFERENCE_ENABLE_FOREGROUND_SERVICE, isChecked).apply();
+                Toast.makeText(MainActivity.this, R.string.manually_restart_service, Toast.LENGTH_SHORT).show();
             }
         });
 

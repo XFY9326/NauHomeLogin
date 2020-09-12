@@ -27,10 +27,12 @@
     <string name="start_settings_notification_activity_error">无法启动通知监听服务设置！</string>
     <string name="need_grant">需要授予</string>
     <string name="notification_channel_des">显示自动登录结果</string>
+    <string name="foreground_channel_des">显示前台运行通知</string>
     <string name="permission_attention">你必须先授予权限！</string>
     <string name="only_support_miui_system">这个功能仅支持MIUI系统！</string>
     <string name="not_enabled_listener">你还没有选择Wifi监听器！</string>
     <string name="notification_channel">i-NAU 自动登录通知</string>
+    <string name="foreground_channel">前台运行通知</string>
     <string name="manual_login_attention">如果你已经连接Wifi但是无法自动登录，可以尝试手动登录</string>
     <string name="miui_system_support_attention">你还需要在系统设置中设置自启动！</string>
     <string name="need_disable_accessibility_service">你首先需要禁用辅助服务！</string>
@@ -42,4 +44,7 @@
     <string name="permission_status">请先授予权限！当前状态：</string>
     <string name="login_failed">自动登录失败！%1$s</string>
     <string name="logout_failed">注销失败！%1$s</string>
+    <string name="auto_login_service">Wifi自动登录服务</string>
+    <string name="enable_foreground_service">启用前台服务，使用系统服务监听时弹出通知栏通知保证后台运行状态</string>
+    <string name="manually_restart_service">请手动重启服务以生效</string>
 </resources>

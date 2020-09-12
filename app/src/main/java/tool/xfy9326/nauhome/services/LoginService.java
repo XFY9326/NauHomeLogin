@@ -53,6 +53,7 @@ public class LoginService extends Service {
                     if (operation == OPERATION_LOGIN) {
                         if (justLogout) {
                             justLogout = false;
+                            Log.d("LoginService", "Just Logout, No Login Required!");
                         } else {
                             login(ip, report);
                         }
@@ -60,7 +61,11 @@ public class LoginService extends Service {
                         logout(ip, report);
                     }
                 }
+            } else {
+                Log.d("LoginService", "IP Error");
             }
+        } else {
+            Log.d("LoginService", "Wifi SSID Error");
         }
         return super.onStartCommand(intent, flags, startId);
     }

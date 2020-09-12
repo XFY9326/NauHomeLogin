@@ -8,8 +8,8 @@
     </string-array>
 
     <string-array name="wifi_listener_type">
-        <item>辅助服务（后台服务）</item>
-        <item>通知监听服务（后台服务）</item>
+        <item>辅助服务（系统服务）</item>
+        <item>通知监听服务（系统服务）</item>
         <item>MIUI特殊支持（状态监听）</item>
     </string-array>
 </resources>

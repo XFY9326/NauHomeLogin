@@ -22,8 +22,8 @@
     </string-array>
 
     <string-array name="wifi_listener_type">
-        <item>Accessibility Service (Background Service)</item>
-        <item>Notification Listener Service (Background Service)</item>
+        <item>Accessibility Service (System Service)</item>
+        <item>Notification Listener Service (System Service)</item>
         <item>MIUI Special Support (Status Listener)</item>
     </string-array>
 </resources>
