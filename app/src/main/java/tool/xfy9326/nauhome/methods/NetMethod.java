@@ -12,6 +12,9 @@ import androidx.preference.PreferenceManager;
 import tool.xfy9326.nauhome.Config;
 
 public class NetMethod {
+    private static final String NAU_HOME_LOGIN_HOST = "10.255.252.20";
+    private static final String UNKNOWN_SSID = "unknown ssid";
+
     public static boolean needCaptivePortalLogin(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -36,8 +39,12 @@ public class NetMethod {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (sharedPreferences.contains(Config.PREFERENCE_WIFI_SSID)) {
             String ssid = NetMethod.getConnectedWifiName(context);
-            String saved_ssid = sharedPreferences.getString(Config.PREFERENCE_WIFI_SSID, null);
-            return ssid != null && saved_ssid != null && ssid.contains(saved_ssid);
+            if (ssid == null || ssid.contains(UNKNOWN_SSID)) {
+                return judgeCaptivePortalConnect();
+            } else {
+                String saved_ssid = sharedPreferences.getString(Config.PREFERENCE_WIFI_SSID, null);
+                return saved_ssid != null && ssid.contains(saved_ssid);
+            }
         }
         return false;
     }
@@ -69,5 +76,16 @@ public class NetMethod {
     public static void requestReevaluateNetwork(Context context, boolean hasConnection) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         connectivityManager.reportNetworkConnectivity(null, hasConnection);
+    }
+
+    private static boolean judgeCaptivePortalConnect() {
+        try {
+            Process p = Runtime.getRuntime().exec("ping -c 2 -w 5 " + NetMethod.NAU_HOME_LOGIN_HOST);
+            int status = p.waitFor();
+            return status == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

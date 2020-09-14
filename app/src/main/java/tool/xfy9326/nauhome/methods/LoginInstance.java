@@ -84,23 +84,21 @@ public class LoginInstance {
     }
 
     private void report(int reportType, String msg) {
-        if (NetMethod.connectCorrectWifi(App.instance)) {
-            if (NetMethod.connectCorrectIp(App.instance)) {
-                if (reportType == REPORT_NOTIFICATION) {
-                    NotificationMethod.reportLoginResult(App.instance, App.instance.getString(R.string.app_name), msg);
-                } else if (reportType == REPORT_TOAST) {
-                    Looper.prepare();
-                    Toast.makeText(App.instance, msg, Toast.LENGTH_SHORT).show();
-                    Looper.loop();
-                }
-            } else {
-                if (reportType == REPORT_NOTIFICATION) {
-                    NotificationMethod.reportLoginResult(App.instance, App.instance.getString(R.string.app_name), App.instance.getString(R.string.login_result_error));
-                } else if (reportType == REPORT_TOAST) {
-                    Looper.prepare();
-                    Toast.makeText(App.instance, R.string.login_result_error, Toast.LENGTH_SHORT).show();
-                    Looper.loop();
-                }
+        if (NetMethod.connectCorrectIp(App.instance)) {
+            if (reportType == REPORT_NOTIFICATION) {
+                NotificationMethod.reportLoginResult(App.instance, App.instance.getString(R.string.app_name), msg);
+            } else if (reportType == REPORT_TOAST) {
+                Looper.prepare();
+                Toast.makeText(App.instance, msg, Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+        } else {
+            if (reportType == REPORT_NOTIFICATION) {
+                NotificationMethod.reportLoginResult(App.instance, App.instance.getString(R.string.app_name), App.instance.getString(R.string.login_result_error));
+            } else if (reportType == REPORT_TOAST) {
+                Looper.prepare();
+                Toast.makeText(App.instance, R.string.login_result_error, Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }
         }
     }

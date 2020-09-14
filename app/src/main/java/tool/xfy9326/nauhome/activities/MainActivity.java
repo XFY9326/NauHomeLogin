@@ -26,6 +26,7 @@ import tool.xfy9326.nauhome.BuildConfig;
 import tool.xfy9326.nauhome.Config;
 import tool.xfy9326.nauhome.R;
 import tool.xfy9326.nauhome.methods.BaseMethod;
+import tool.xfy9326.nauhome.methods.ListenerMethod;
 import tool.xfy9326.nauhome.methods.LoginInstance;
 import tool.xfy9326.nauhome.methods.NetMethod;
 import tool.xfy9326.nauhome.methods.PermissionMethod;
@@ -97,6 +98,9 @@ public class MainActivity extends Activity {
                                 if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
                                     Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
                                 } else {
+                                    if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+                                        ListenerMethod.stopLocalListenerService(MainActivity.this);
+                                    }
                                     sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
                                     try {
                                         startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
@@ -109,6 +113,9 @@ public class MainActivity extends Activity {
                                 if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
                                     Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
                                 } else {
+                                    if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+                                        ListenerMethod.stopLocalListenerService(MainActivity.this);
+                                    }
                                     sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
                                     try {
                                         startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
@@ -125,9 +132,22 @@ public class MainActivity extends Activity {
                                 } else if (!BaseMethod.isMIUI()) {
                                     Toast.makeText(MainActivity.this, R.string.only_support_miui_system, Toast.LENGTH_SHORT).show();
                                 } else {
+                                    if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+                                        ListenerMethod.stopLocalListenerService(MainActivity.this);
+                                    }
                                     Toast.makeText(MainActivity.this, R.string.enabled, Toast.LENGTH_SHORT).show();
                                     Toast.makeText(MainActivity.this, R.string.miui_system_support_attention, Toast.LENGTH_SHORT).show();
                                     sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
+                                }
+                            } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+                                if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
+                                    Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
+                                } else if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
+                                    Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, R.string.enabled, Toast.LENGTH_SHORT).show();
+                                    sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
+                                    ListenerMethod.startLocalListenerService(MainActivity.this);
                                 }
                             }
                         }

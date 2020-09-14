@@ -11,6 +11,7 @@ public class Config {
     public enum WIFI_LISTENER_TYPE {
         ACCESSIBILITY_SERVICE,
         NOTIFICATION_SERVICE,
-        MIUI_SPECIAL_SUPPORT
+        MIUI_SPECIAL_SUPPORT,
+        LOCAL_SERVICE
     }
 }

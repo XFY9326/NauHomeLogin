@@ -29,6 +29,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".services.LocalListenerService" />
+
         <service
             android:name=".services.WifiListenerAccessibilityService"
             android:label="@string/app_long_name"

@@ -1,18 +1,21 @@
 package tool.xfy9326.nauhome.methods;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+
+import tool.xfy9326.nauhome.services.LocalListenerService;
 
 public class ListenerMethod {
 
     public static ConnectivityManager.NetworkCallback startWifiListener(final Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        final ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
             NetworkRequest.Builder builder = new NetworkRequest.Builder();
 
@@ -20,25 +23,21 @@ public class ListenerMethod {
                     .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                     .build();
             ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
-                private boolean connectToNewNetwork = false;
+                private int netHashCode = 0;
 
                 @Override
                 public void onAvailable(@NonNull Network network) {
+                    if (netHashCode == network.hashCode()) {
+                        netHashCode = 0;
+                    }
                     super.onAvailable(network);
-                    connectToNewNetwork = true;
-                }
-
-                @Override
-                public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties linkProperties) {
-                    super.onLinkPropertiesChanged(network, linkProperties);
                 }
 
                 @Override
                 public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
-                    if (connectToNewNetwork) {
-                        connectToNewNetwork = false;
-                        if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL) &&
-                                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    if (netHashCode != network.hashCode()) {
+                        netHashCode = network.hashCode();
+                        if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                             LoginInstance.getInstance().login(LoginInstance.REPORT_NOTIFICATION);
                         }
                     }
@@ -47,14 +46,28 @@ public class ListenerMethod {
 
                 @Override
                 public void onLost(@NonNull Network network) {
+                    if (netHashCode == network.hashCode()) {
+                        netHashCode = 0;
+                    }
                     super.onLost(network);
-                    connectToNewNetwork = false;
                 }
             };
             connectivityManager.registerNetworkCallback(request, networkCallback);
             return networkCallback;
         }
         return null;
+    }
+
+    public static void startLocalListenerService(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(new Intent(context, LocalListenerService.class));
+        } else {
+            context.startService(new Intent(context, LocalListenerService.class));
+        }
+    }
+
+    public static void stopLocalListenerService(Context context) {
+        context.stopService(new Intent(context, LocalListenerService.class));
     }
 
     public static ConnectivityManager.NetworkCallback stopWifiListener(Context context, ConnectivityManager.NetworkCallback networkCallback) {

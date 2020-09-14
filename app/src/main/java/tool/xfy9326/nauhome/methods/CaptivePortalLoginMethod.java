@@ -1,7 +1,6 @@
 package tool.xfy9326.nauhome.methods;
 
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -53,7 +52,6 @@ public class CaptivePortalLoginMethod {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("LoginMethod", "Login Thread Start");
                     requestURL(buildURL(ip, true), buildLoginForm(id, pw, type), onRequestListener);
                 }
             }).start();
@@ -65,7 +63,6 @@ public class CaptivePortalLoginMethod {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("LoginMethod", "Logout Thread Start");
                     requestURL(buildURL(ip, false), buildLoginOutForm(id, pw), onRequestListener);
                 }
             }).start();
@@ -80,8 +77,6 @@ public class CaptivePortalLoginMethod {
             byte[] postParamEntity = buildPostParam(postForm).getBytes();
 
             connection = (HttpURLConnection) requestUrl.openConnection(Proxy.NO_PROXY);
-            connection.setConnectTimeout(2 * 1000);
-            connection.setReadTimeout(2 * 1000);
             connection.setInstanceFollowRedirects(true);
             connection.setUseCaches(false);
 
