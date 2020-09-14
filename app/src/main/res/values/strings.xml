@@ -46,4 +46,7 @@
     <string name="auto_login_service">Wifi Auto Login Service</string>
     <string name="enable_foreground_service">Enable foreground service. Show notification to make sure service running in background.</string>
     <string name="manually_restart_service">Manually restart service to take effect</string>
+    <string name="attention">Attention</string>
+    <string name="try_login_when_ssid_unknown">When WiFi SSID is unknown, it will automatically try to log in when the login server is available.</string>
+    <string name="try_login_when_ssid_unknown_attention">It is highly recommended to start this feature, as the application may not be able to obtain SSID when running in the background.</string>
 </resources>

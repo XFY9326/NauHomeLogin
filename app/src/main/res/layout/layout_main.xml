@@ -10,26 +10,11 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:focusedByDefault="true"
-            android:gravity="center"
-            android:text="@string/app_long_name"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            tools:targetApi="o" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="25dp"
             android:gravity="center"
             android:orientation="vertical">
@@ -114,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="22dp"
             android:layout_marginBottom="20dp"
             android:gravity="center_vertical"
@@ -178,6 +163,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:labelFor="@id/checkbox_ssid_unknown_action"
+                    android:text="@string/try_login_when_ssid_unknown"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/checkbox_ssid_unknown_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:labelFor="@id/button_listener_service"
                     android:text="@string/listener_service_attention"
                     android:textSize="15sp"
@@ -202,13 +210,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:labelFor="@id/button_foreground_service"
+                    android:labelFor="@id/checkbox_foreground_service"
                     android:text="@string/enable_foreground_service"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/button_foreground_service"
+                <Switch
+                    android:id="@+id/checkbox_foreground_service"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp" />

@@ -7,6 +7,7 @@ public class Config {
     public static final String PREFERENCE_WIFI_SSID = "WIFI_SSID";
     public static final String PREFERENCE_CHOSEN_WIFI_LISTENER = "CHOSEN_WIFI_LISTENER";
     public static final String PREFERENCE_ENABLE_FOREGROUND_SERVICE = "ENABLE_FOREGROUND_SERVICE";
+    public static final String PREFERENCE_TRY_LOGIN_EVEN_SSID_IS_UNKNOWN = "TRY_LOGIN_EVEN_SSID_IS_UNKNOWN";
 
     public enum WIFI_LISTENER_TYPE {
         ACCESSIBILITY_SERVICE,

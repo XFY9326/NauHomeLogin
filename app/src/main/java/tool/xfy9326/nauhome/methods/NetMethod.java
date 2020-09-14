@@ -40,7 +40,9 @@ public class NetMethod {
         if (sharedPreferences.contains(Config.PREFERENCE_WIFI_SSID)) {
             String ssid = NetMethod.getConnectedWifiName(context);
             if (ssid == null || ssid.contains(UNKNOWN_SSID)) {
-                return judgeCaptivePortalConnect();
+                if (sharedPreferences.getBoolean(Config.PREFERENCE_TRY_LOGIN_EVEN_SSID_IS_UNKNOWN, true)) {
+                    return judgeCaptivePortalConnect();
+                }
             } else {
                 String saved_ssid = sharedPreferences.getString(Config.PREFERENCE_WIFI_SSID, null);
                 return saved_ssid != null && ssid.contains(saved_ssid);

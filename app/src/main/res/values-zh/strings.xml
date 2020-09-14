@@ -47,4 +47,7 @@
     <string name="auto_login_service">Wifi自动登录服务</string>
     <string name="enable_foreground_service">启用前台服务，使用系统服务监听时弹出通知栏通知保证后台运行状态</string>
     <string name="manually_restart_service">请手动重启服务以生效</string>
+    <string name="attention">注意</string>
+    <string name="try_login_when_ssid_unknown">Wifi SSID未知时，在登录服务器可用时自动尝试登陆</string>
+    <string name="try_login_when_ssid_unknown_attention">强烈建议启动此功能，因为应用在后台运行时可能无法获取SSID</string>
 </resources>

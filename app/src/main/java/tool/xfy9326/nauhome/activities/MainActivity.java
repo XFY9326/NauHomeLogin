@@ -12,15 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
+
+import java.util.Objects;
 
 import tool.xfy9326.nauhome.BuildConfig;
 import tool.xfy9326.nauhome.Config;
@@ -41,6 +43,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Objects.requireNonNull(getActionBar()).setTitle(R.string.app_long_name);
         setView();
         setPermissionStatus();
     }
@@ -171,7 +174,8 @@ public class MainActivity extends Activity {
         }
 
         final Button save = findViewById(R.id.button_save);
-        CheckBox foreground = findViewById(R.id.button_foreground_service);
+        Switch foreground = findViewById(R.id.checkbox_foreground_service);
+        Switch ssid_unknown = findViewById(R.id.checkbox_ssid_unknown_action);
         Button grant = findViewById(R.id.button_grant_permission);
         Button login = findViewById(R.id.button_login);
         Button logout = findViewById(R.id.button_logout);
@@ -181,6 +185,21 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+
+        ssid_unknown.setChecked(sharedPreferences.getBoolean(Config.PREFERENCE_TRY_LOGIN_EVEN_SSID_IS_UNKNOWN, true));
+        ssid_unknown.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPreferences.edit().putBoolean(Config.PREFERENCE_TRY_LOGIN_EVEN_SSID_IS_UNKNOWN, isChecked).apply();
+                if (!isChecked) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(R.string.attention);
+                    builder.setMessage(R.string.try_login_when_ssid_unknown_attention);
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.show();
+                }
             }
         });
 
