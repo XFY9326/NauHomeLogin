@@ -36,10 +36,16 @@ public class WifiListenerNotificationService extends NotificationListenerService
         }
     }
 
+    private void finishService() {
+        stopForeground(true);
+        stopSelf();
+    }
+
     private void initListener() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) != Config.WIFI_LISTENER_TYPE.NOTIFICATION_SERVICE.ordinal()) {
             Toast.makeText(this, R.string.not_enabled_listener, Toast.LENGTH_LONG).show();
+            finishService();
         } else if (!PermissionMethod.hasPermission(this)) {
             Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
         } else if (networkCallback == null) {

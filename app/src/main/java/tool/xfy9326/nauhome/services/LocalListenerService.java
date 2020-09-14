@@ -17,7 +17,6 @@ import tool.xfy9326.nauhome.methods.NotificationMethod;
 import tool.xfy9326.nauhome.methods.PermissionMethod;
 
 public class LocalListenerService extends Service {
-    public static final String COMMAND_CLOSE = "COMMAND_CLOSE";
     private ConnectivityManager.NetworkCallback networkCallback;
 
     @Override
