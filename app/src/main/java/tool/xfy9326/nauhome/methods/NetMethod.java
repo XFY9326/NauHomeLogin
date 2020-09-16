@@ -82,7 +82,7 @@ public class NetMethod {
 
     private static boolean judgeCaptivePortalConnect() {
         try {
-            Process p = Runtime.getRuntime().exec("ping -c 2 -w 5 " + NetMethod.NAU_HOME_LOGIN_HOST);
+            Process p = Runtime.getRuntime().exec("ping -c 3 -w 3 " + NetMethod.NAU_HOME_LOGIN_HOST);
             int status = p.waitFor();
             return status == 0;
         } catch (Exception e) {

@@ -97,62 +97,7 @@ public class MainActivity extends Activity {
                     builder.setPositiveButton(R.string.set_it, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (chosenListenerType == Config.WIFI_LISTENER_TYPE.ACCESSIBILITY_SERVICE.ordinal()) {
-                                if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
-                                    Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
-                                        ListenerMethod.stopLocalListenerService(MainActivity.this);
-                                    }
-                                    sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
-                                    try {
-                                        startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-                                    } catch (Exception e) {
-                                        Toast.makeText(MainActivity.this, R.string.start_settings_accessibility_activity_error, Toast.LENGTH_SHORT).show();
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.NOTIFICATION_SERVICE.ordinal()) {
-                                if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
-                                    Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
-                                        ListenerMethod.stopLocalListenerService(MainActivity.this);
-                                    }
-                                    sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
-                                    try {
-                                        startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
-                                    } catch (Exception e) {
-                                        Toast.makeText(MainActivity.this, R.string.start_settings_notification_activity_error, Toast.LENGTH_SHORT).show();
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.MIUI_SPECIAL_SUPPORT.ordinal()) {
-                                if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
-                                    Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
-                                } else if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
-                                    Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
-                                } else if (!BaseMethod.isMIUI()) {
-                                    Toast.makeText(MainActivity.this, R.string.only_support_miui_system, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
-                                        ListenerMethod.stopLocalListenerService(MainActivity.this);
-                                    }
-                                    Toast.makeText(MainActivity.this, R.string.enabled, Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(MainActivity.this, R.string.miui_system_support_attention, Toast.LENGTH_SHORT).show();
-                                    sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
-                                }
-                            } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
-                                if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
-                                    Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
-                                } else if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
-                                    Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(MainActivity.this, R.string.enabled, Toast.LENGTH_SHORT).show();
-                                    sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
-                                    ListenerMethod.startLocalListenerService(MainActivity.this);
-                                }
-                            }
+                            changeWifiListener();
                         }
                     });
                     builder.setNegativeButton(android.R.string.cancel, null);
@@ -262,6 +207,64 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void changeWifiListener() {
+        if (chosenListenerType == Config.WIFI_LISTENER_TYPE.ACCESSIBILITY_SERVICE.ordinal()) {
+            if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
+                Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
+            } else {
+                if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+                    ListenerMethod.stopLocalListenerService(MainActivity.this);
+                }
+                sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
+                try {
+                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, R.string.start_settings_accessibility_activity_error, Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.NOTIFICATION_SERVICE.ordinal()) {
+            if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
+                Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
+            } else {
+                if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+                    ListenerMethod.stopLocalListenerService(MainActivity.this);
+                }
+                sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
+                try {
+                    startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, R.string.start_settings_notification_activity_error, Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.MIUI_SPECIAL_SUPPORT.ordinal()) {
+            if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
+                Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
+            } else if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
+                Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
+            } else if (!BaseMethod.isMIUI()) {
+                Toast.makeText(MainActivity.this, R.string.only_support_miui_system, Toast.LENGTH_SHORT).show();
+            } else {
+                if (sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, -1) == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+                    ListenerMethod.stopLocalListenerService(MainActivity.this);
+                }
+                Toast.makeText(MainActivity.this, R.string.enabled, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.miui_system_support_attention, Toast.LENGTH_SHORT).show();
+                sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
+            }
+        } else if (chosenListenerType == Config.WIFI_LISTENER_TYPE.LOCAL_SERVICE.ordinal()) {
+            if (BaseMethod.isAccessibilityServiceEnabled(MainActivity.this)) {
+                Toast.makeText(MainActivity.this, R.string.need_disable_accessibility_service, Toast.LENGTH_SHORT).show();
+            } else if (BaseMethod.isNotificationListenerServiceEnabled(MainActivity.this)) {
+                Toast.makeText(MainActivity.this, R.string.need_disable_notification_service, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, R.string.enabled, Toast.LENGTH_SHORT).show();
+                ListenerMethod.startLocalListenerService(MainActivity.this);
+                sharedPreferences.edit().putInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, chosenListenerType).apply();
+            }
+        }
+    }
 
     private void setPermissionStatus() {
         Button grant = findViewById(R.id.button_grant_permission);
