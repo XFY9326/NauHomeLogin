@@ -7,8 +7,8 @@ android {
         applicationId "tool.xfy9326.nauhome"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 8
-        versionName "1.7"
+        versionCode 9
+        versionName "1.8"
     }
 
     buildTypes {

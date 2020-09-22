@@ -12,7 +12,7 @@
     <string name="set_it">Set it now</string>
     <string name="save">Save</string>
     <string name="permission_attention">You must grant permission first!</string>
-    <string name="permission_status">Grant permission first!\nNow status:</string>
+    <string name="permission_status">Grant location permission first! (The recommended choice is always allowed) \nNow status:</string>
     <string name="gps_attention">You must turn on GPS to get Wifi SSID! Wifi SSID is necessary for checking correct wifi.</string>
     <string name="turn_on_gps">GPS Settings</string>
     <string name="granted">Granted</string>
@@ -49,4 +49,5 @@
     <string name="attention">Attention</string>
     <string name="try_login_when_ssid_unknown">When WiFi SSID is unknown, it will automatically try to log in when the login server is available.</string>
     <string name="try_login_when_ssid_unknown_attention">It is highly recommended to start this feature, as the application may not be able to obtain SSID when running in the background.</string>
+    <string name="notification_permission_attention">You should give notification permission in system settings first!</string>
 </resources>

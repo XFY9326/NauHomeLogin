@@ -63,11 +63,11 @@ public class MainActivity extends Activity {
     }
 
     private void showAboutDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.app_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
-        builder.setMessage(R.string.about_application);
-        builder.setPositiveButton(android.R.string.ok, null);
-        builder.show();
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.app_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE))
+                .setMessage(R.string.about_application)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     private void setView() {
@@ -83,25 +83,38 @@ public class MainActivity extends Activity {
         listenerService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (PermissionMethod.hasPermission(MainActivity.this)) {
+                if (sharedPreferences.getBoolean(Config.PREFERENCE_ENABLE_FOREGROUND_SERVICE, true) &&
+                        !BaseMethod.areNotificationsEnabled(MainActivity.this)) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(R.string.attention)
+                            .setMessage(R.string.notification_permission_attention)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    BaseMethod.gotoNotificationSettings(MainActivity.this);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
+                } else if (PermissionMethod.hasPermission(MainActivity.this)) {
                     chosenListenerType = sharedPreferences.getInt(Config.PREFERENCE_CHOSEN_WIFI_LISTENER, 0);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle(R.string.enable_listener);
-                    builder.setSingleChoiceItems(listener, chosenListenerType, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            chosenListenerType = which;
-                        }
-                    });
-                    builder.setPositiveButton(R.string.set_it, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            changeWifiListener();
-                        }
-                    });
-                    builder.setNegativeButton(android.R.string.cancel, null);
-                    builder.show();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(R.string.enable_listener)
+                            .setSingleChoiceItems(listener, chosenListenerType, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    chosenListenerType = which;
+                                }
+                            })
+                            .setPositiveButton(R.string.set_it, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    changeWifiListener();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
                 } else {
                     Toast.makeText(MainActivity.this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
                 }
@@ -139,11 +152,11 @@ public class MainActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 sharedPreferences.edit().putBoolean(Config.PREFERENCE_TRY_LOGIN_EVEN_SSID_IS_UNKNOWN, isChecked).apply();
                 if (!isChecked) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle(R.string.attention);
-                    builder.setMessage(R.string.try_login_when_ssid_unknown_attention);
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.show();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(R.string.attention)
+                            .setMessage(R.string.try_login_when_ssid_unknown_attention)
+                            .setPositiveButton(android.R.string.ok, null)
+                            .show();
                 }
             }
         });
