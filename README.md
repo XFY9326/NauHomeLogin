@@ -9,8 +9,7 @@ At present, all native or quasi native Android devices are supported. Custom rom
 但是 Vivo 和 Oppo 设备由于后台服务权限问题，尽管可以使用但是效果并不好，请是实际尝试后再判断是否继续使用  
 However, due to the background service permission problem, this app can be used on vivo or oppo devices, but the effect is not good. Please judge whether to continue to use after the actual attempt.
 
-使用条件：  
-Premise of use:
+## 使用条件(Before you use):
 
 - 必须允许后台获取位置的权限，并一直启用位置服务
 - The background must be allowed to obtain location permissions and you should always enable location services
@@ -21,18 +20,20 @@ Premise of use:
 - 最好锁定在后台，防止被系统清理
 - It is better to lock this APP in the background to prevent being cleaned up by the system
 
-  NauHomeLogin Android Application
-  Copyright (C) 2020 XFY9326
+-----  
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+      NauHomeLogin Android Application
+      Copyright (C) 2020 XFY9326
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
 
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with this program. If not, see <http://www.gnu.org/licenses/>.
